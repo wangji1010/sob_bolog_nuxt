@@ -6,16 +6,16 @@
           <a href="/"><h3>沙雕博客</h3></a>
           </div>
       </div>
-      <div v-if="userInfo===null" class="login-tips-tex-box float-right">
+      <div id="login-tips-tex-box" style="display: none"  class="login-tips-tex-box float-right">
        <span>
-         <a href="/login"><i class="iconfont icon-zhiwen" ></i>登录</a>
+         <a :href='"/login?redirectPath="+redirectPath'><i class="iconfont icon-zhiwen" ></i>登录</a>
        </span>
        <span>
          <a href="/register"><i class="iconfont icon-tianjia"></i>注册</a>
        </span>
       </div>
-      <div v-if="userInfo!==null" class="user-info-box float-right">
-        <div class="header-user-username float-right">
+      <div id="user-info-box" style="display: none" class="user-info-box float-right">
+        <div v-if="userInfo!==null" class="header-user-username float-right">
           <el-dropdown @command="handleCommand">
             <span class="el-dropdown-link">
               {{userInfo.userName}}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -27,7 +27,7 @@
             </el-dropdown-menu>
           </el-dropdown>
         </div>
-        <div class="head-user-avatar float-left">
+        <div v-if="userInfo!==null" class="head-user-avatar float-left">
           <img :src="userInfo.avatar" alt="">
         </div>
       </div>
@@ -70,10 +70,14 @@
 import * as api from '../api/api'
 export default {
   mounted() {
+    if (this.redirectPath !==''&&this.route.path!=='/'&&this.route.path!=='/login'){
+      this.redirectPath = location.href
+    }
     this.checkToken()
   },
   data(){
     return{
+      redirectPath:'',
       userInfo:null
     }
   }
@@ -92,15 +96,25 @@ export default {
         //管理中心
         location.href = ''
       }else if (command==='userInfo'){
-        location.href = '/userInfo'
+        location.href = '/information'
       }
     },
     checkToken(){
       api.checkToken().then(res=>{
+        let loginTips = document.getElementById('login-tips-tex-box');
+        let userInfoBox = document.getElementById('user-info-box');
         if (res.code===200){
           //获取成功
           this.userInfo = res.data
+          //控制顶部登陆提示的显示
+          if (userInfoBox){
+            userInfoBox.style.display = 'block'
+          }
+        }else if (loginTips){
+          loginTips.style.display = 'block'
         }
+
+
 
       })
     }
@@ -150,7 +164,8 @@ export default {
   margin-right: 40px;
 }
 .navgation-box{
-  margin-right: 50px;
+  right: 200px;
+  position: absolute;
   text-decoration: none;
 }
 .login-tips-tex-box{
@@ -176,6 +191,7 @@ export default {
   padding: 0;
 }
 .blog-header{
+  position: relative;
   line-height: 30px;
   margin-top: 20px;
   background-color: #fff;
