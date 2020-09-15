@@ -77,8 +77,8 @@ export const getSearchContent = (keyword,page,size,sort,categoryId) =>{
   }
 };
 
-export const doLogin = (verifyCode,verifyKey,sobUser)=>{
-  return http.requestPost('/user/login/' + verifyCode + '/' + verifyKey ,sobUser)
+export const doLogin = (verifyCode,sobUser)=>{
+  return http.requestPost('/user/login/' + verifyCode,sobUser)
 }
 
 export const checkToken = ()=>{
@@ -87,4 +87,14 @@ export const checkToken = ()=>{
 
 export const doLoginOut = ()=>{
   return http.requestGet('/user/logout')
+}
+
+export const sendEmailCode =(captchaCode,emailAddress)=>{
+  return http.requestGet('/user/verify_code?captchaCode='+captchaCode+'&email='+emailAddress+'&type=register')
+}
+export const checkUserName = (userName)=>{
+  return http.requestGet('/user/user_name?userName='+userName)
+}
+export const registerUser = (captcaCode,emailCode,sobUser)=>{
+  return http.requestPost('/user/register?captcha_code='+captcaCode+'&email_code='+emailCode,sobUser)
 }

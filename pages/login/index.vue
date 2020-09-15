@@ -14,7 +14,7 @@
             <el-form-item label="验证码" required>
               <el-input v-model="loginInfo.verifyCode" placeholder="请输入人类验证码" @keypress.enter.native="doLogin"></el-input>
               <img v-loading="isCaptcha"
-                :src="captchaPath" alt="点击更新" @click="updateVeryfyCode" class="captcha_code">
+                   :src="captchaPath" alt="点击更新" @click="updateVeryfyCode" class="captcha_code">
             </el-form-item>
             <el-form-item class="login-button">
               <el-button type="primary" @click="doLogin" size="small" > 登 录 </el-button>
@@ -31,24 +31,21 @@
 <script>
 import * as  api from '../../api/api'
 export default {
-
   name: "index",
   asyncData(){
     let tempKey = Date.parse(new Date())
     return{
       loginInfo: {
-      verifyCode: "",
+        verifyCode: "",
         captcha_key: tempKey
-    },
+      },
       captchaPath:'http://localhost:8090/user/captcha?captcha_key='+ tempKey
     }
   },
   beforeMount() {
-
     this.updateVeryfyCode();
   },
   mounted() {
-
   },
   data() {
     return {
@@ -62,7 +59,6 @@ export default {
   }
   , methods: {
     //检查登录是否有效
-
     toastS(msg) {
       this.$message.success(msg)
     },
@@ -95,7 +91,7 @@ export default {
       }
       this.isCommit = true
       //向服务器提交数据
-      api.doLogin(this.loginInfo.verifyCode,this.loginInfo.captcha_key,this.sobUser)
+      api.doLogin(this.loginInfo.verifyCode,this.sobUser)
         .then(res=>{
           this.isCommit = false
           console.log('登录'+res.data)
@@ -114,8 +110,7 @@ export default {
             this.updateVeryfyCode()
             this.$message.error(res.message)
           }
-
-      })
+        })
       console.log(this.sobUser)
       console.log(this.loginInfo)
     },
@@ -147,7 +142,6 @@ export default {
   margin-top: 20px;
 }
 .captcha_code_input_box{
-
 }
 .captcha_code{
   margin-left: 10px;
@@ -167,15 +161,12 @@ export default {
   height: 46px;
   background-color: dodgerblue;
 }
-
 .center{
   margin: 0 auto;
   width: 1140px;
 }
-
 .admin-login-header-center{
   line-height: 46px;
-
 }
 .admin-login-logo{
   color: #ffffff;
@@ -184,12 +175,10 @@ export default {
 }
 .login-center-box .el-input{
   width: 200px;
-
 }
 .login-center-box{
   padding: 20px 20px;
   width: 1110px;
-
   background-color: #ffffff;
   box-shadow: 0 1px 10px #afafaf;
   border-radius: 5px;
@@ -205,5 +194,4 @@ export default {
   border-radius: 0;
   border-bottom: 1px solid #cccccc;
 }
-
 </style>
