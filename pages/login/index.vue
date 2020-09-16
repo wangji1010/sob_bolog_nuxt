@@ -18,7 +18,7 @@
             </el-form-item>
             <el-form-item class="login-button">
               <el-button type="primary" @click="doLogin" size="small" > 登 录 </el-button>
-              <span class="forget-tips-text"><a href="">忘记密码？</a></span>
+              <span class="forget-tips-text"><a href="/forget">忘记密码？</a></span>
             </el-form-item>
           </el-form>
         </el-col>

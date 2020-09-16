@@ -69,6 +69,7 @@ export default {
   },
   data() {
     return {
+      type:'register',
       isUserNameOk : '',
       isCountDown:false,
       countDown: '重新发送(60)',
@@ -173,7 +174,7 @@ export default {
       }
 
       //发起请求
-      api.sendEmailCode(this.captchaCode, this.sobUser.email).then(res => {
+      api.sendEmailCode(this.captchaCode, this.sobUser.email,this.type).then(res => {
         console.log(res)
         if (res.code === 200) {
           this.$message.success(res.message)

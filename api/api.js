@@ -89,12 +89,18 @@ export const doLoginOut = ()=>{
   return http.requestGet('/user/logout')
 }
 
-export const sendEmailCode =(captchaCode,emailAddress)=>{
-  return http.requestGet('/user/verify_code?captchaCode='+captchaCode+'&email='+emailAddress+'&type=register')
+export const sendEmailCode =(captchaCode,emailAddress,type)=>{
+  return http.requestGet('/user/verify_code?captchaCode='+captchaCode+'&email='+emailAddress+'&type='+type)
 }
 export const checkUserName = (userName)=>{
   return http.requestGet('/user/user_name?userName='+userName)
 }
 export const registerUser = (captcaCode,emailCode,sobUser)=>{
   return http.requestPost('/user/register?captcha_code='+captcaCode+'&email_code='+emailCode,sobUser)
+}
+export const checkVerifyCode = (captchaCode ,emailAddress ,emailCode ) =>{
+  return http.requestGet('/user/check_email_code?captchaCode='+captchaCode+'&emailAddress='+emailAddress+'&emailCode='+emailCode)
+}
+export const updatePassword = (verifyCode,sobUser) =>{
+  return http.requestPut('/user/password/'+verifyCode,sobUser)
 }
