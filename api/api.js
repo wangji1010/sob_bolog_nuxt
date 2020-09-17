@@ -104,3 +104,6 @@ export const checkVerifyCode = (captchaCode ,emailAddress ,emailCode ) =>{
 export const updatePassword = (verifyCode,sobUser) =>{
   return http.requestPut('/user/password/'+verifyCode,sobUser)
 }
+export const getArticleDetailById = (id) =>{
+  return http.requestGet(baseUrl+'/portal/article/'+id)
+}

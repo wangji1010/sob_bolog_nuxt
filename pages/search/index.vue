@@ -37,7 +37,9 @@
           </div>
           <div class="search-res-list-box" v-loading="isLoading">
             <div v-if="index!==0" class="search-res-item" v-for="(item,index) in contents" :key="index">
-              <div class="res-item-title" v-html="item.title"></div>
+                <a :href="'/article/'+item.id">
+                  <div class="res-item-title" v-html="item.title"></div>
+                </a>
               <div class="res-item-content" v-html="item.content"></div>
               <div class="search-info-box">
                 <span class="iconfont icon-rili">{{ item.createTime | formatDate("yyyy-MM-dd hh:mm") }}</span>
@@ -347,7 +349,9 @@ export default {
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
+.search-res-item a{
 
+}
 .search-res-item {
   margin-bottom: 20px;
 }

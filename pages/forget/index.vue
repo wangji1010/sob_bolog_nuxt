@@ -27,7 +27,7 @@
       <div v-if="showType==='reset'" class="reset-password-container">
         <el-form ref="dynamicValidateForm" label-width="100px">
           <el-form-item label="验证码" required>
-            <el-input v-model="sobUser.password" placeholder="请输入新密码"></el-input>
+            <el-input v-model="sobUser.password" placeholder="请输入新密码" type="password"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="setPassword">设置密码</el-button>
