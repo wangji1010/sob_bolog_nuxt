@@ -107,3 +107,21 @@ export const updatePassword = (verifyCode,sobUser) =>{
 export const getArticleDetailById = (id) =>{
   return http.requestGet(baseUrl+'/portal/article/'+id)
 }
+export const getRecommendArticle=(articleId,id)=>{
+  return http.requestGet(baseUrl+'/portal/article/recommend/'+articleId+'/'+id)
+}
+
+
+export const getCommentByArticleId = (articleId,page,size) =>{
+  if (process.client){
+    //http://localhost:8090/portal/comment/list/s/1/1
+    return http.requestGet('/portal/comment/list/'+articleId+'/'+page+'/'+size)
+  }else {
+    return http.requestGet(baseUrl+'/portal/comment/list/'+articleId+'/'+page+'/'+size)
+  }
+}
+export const postComment = (comment) =>{
+  return http.requestPost('/portal/comment',comment)
+
+}
+

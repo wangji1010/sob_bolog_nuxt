@@ -23,7 +23,7 @@ name: "WordCloud",
   },
   data(){
   return{
-    fontSize:[15,25],
+    fontSize:[15,30],
     rotate:{from: -10, to: 30, numOfOrientation: 10 },
     margin: {top: 0, right: 0, bottom: 0, left: 0 },
     defaultWords:[]

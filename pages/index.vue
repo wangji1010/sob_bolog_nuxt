@@ -129,7 +129,6 @@
           </div>
         </div>
       </div>
-
       <div class="right-card">
         <div class="card-title">
           联系我
@@ -353,7 +352,7 @@ export default {
     let categories = await api.getCategories();
     let loops = await api.getLoopList();
     let topArticle = await api.getArticlTop();
-    let Articles = await api.getArticles('', 1, 5)
+    let Articles = await api.getArticles('', 1, 10)
 
 
     let pageNavigation = {
@@ -428,12 +427,14 @@ export default {
 .right-card {
   border-radius: 4px;
   padding: 10px;
-  margin-bottom: 20px;
+ margin-top: 20px;
   background: #ffffff;
 }
 
 .right-card .card-title {
-  color: #999999;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #cccccc;
+  color: blueviolet;
   margin-bottom: 10px;
   font-size: 12px;
   font-weight: 600;
