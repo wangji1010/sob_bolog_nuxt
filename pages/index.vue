@@ -13,7 +13,14 @@
         </div>
       </div>
       <div class="left-user-self-links">
-        <span class="iconfont icon-weixin "></span>
+        <el-popover
+          placement="bottom"
+          width="200"
+          trigger="hover">
+          <div>这是内容</div>
+          <span slot="reference" class="iconfont icon-weixin"></span>
+        </el-popover>
+
         <span class="iconfont icon-github  "></span>
         <span class="iconfont icon-dianshi  "></span>
       </div>
@@ -97,7 +104,7 @@
           :current-page="pageNavigation.currentPage"
           :page-sizes="[3, 5, 8, 10]"
           :page-size="pageNavigation.pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
+          layout="total, prev, pager, next, jumper"
           :total="pageNavigation.totalCount">
         </el-pagination>
       </div>

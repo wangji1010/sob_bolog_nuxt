@@ -124,4 +124,18 @@ export const postComment = (comment) =>{
   return http.requestPost('/portal/comment',comment)
 
 }
+export const getUserInfo = (id) =>{
+  if (process.client){
+    return http.requestGet('/user/user_info/'+id)
+  }else {
+    return http.requestGet(baseUrl+'/user/user_info/'+id)
+  }
+}
+export const updateUserInfo = (sobUser,userId) =>{
+  if (process.client){
+    return http.requestPost('/user/user_info/'+userId,sobUser)
+  }else {
+    return http.requestPost(baseUrl+'/user/user_info/'+userId,sobUser)
+  }
 
+}

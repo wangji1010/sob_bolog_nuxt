@@ -42,10 +42,6 @@
           <span><i class="iconfont icon-lianjie"></i>友链</span>
         </NuxtLink>
       </div>
-
-
-
-
     </div>
     <Nuxt />
     <div class="blog-footer">
@@ -62,6 +58,10 @@
         <span>关于我们</span> |
       </div>
 
+      <div @click="toTop" id="el-backtop" class="el-backtop" style="right: 350px;bottom: 300px;display: none">
+        <i class="el-icon-caret-top"></i>
+      </div>
+
     </div>
   </div>
 </template>
@@ -70,6 +70,7 @@
 import * as api from '../api/api'
 export default {
   mounted() {
+    window.addEventListener('scroll',this.onWindowScroll)
     if (this.redirectPath !==''&&this.route.path!=='/'&&this.route.path!=='/login'){
       this.redirectPath = location.href
     }
@@ -80,8 +81,26 @@ export default {
       redirectPath:'',
       userInfo:null
     }
+  },
+  beforeDestroy() {
+    document.removeEventListener('scroll',this.onWindowScroll)
   }
   ,methods:{
+    toTop(){
+      document.documentElement.scrollTo({
+        top:0,
+        behavior:'smooth'
+      })
+    },
+    onWindowScroll(){
+     let toTop = document.getElementById('el-backtop')
+     let offTop = document.documentElement.scrollTop;
+     if (offTop>500){
+       toTop.style.display = 'block'
+     }else {
+       toTop.style.display = 'none'
+     }
+    },
     handleCommand(command){
       if (command==='logout'){
         api.doLoginOut().then(res=>{
@@ -96,7 +115,13 @@ export default {
         //管理中心
         location.href = ''
       }else if (command==='userInfo'){
-        location.href = '/information'
+        location.href = "/information/"+this.userInfo.id
+        // this.$router.push({
+        //   path:'/information'
+        //   ,query:{
+        //     userId:this.userInfo.id
+        //   }
+        // })
       }
     },
     checkToken(){
@@ -106,6 +131,9 @@ export default {
         if (res.code===200){
           //获取成功
           this.userInfo = res.data
+          //拿到id之后 通过共享树共享
+          this.$store.commit("setCurrentUserId",this.userInfo.id)
+          // console.log("setCurrentUserId"+this.$store.state.currentUserId)
           //控制顶部登陆提示的显示
           if (userInfoBox){
             userInfoBox.style.display = 'block'
@@ -123,6 +151,22 @@ export default {
 </script>
 
 <style>
+
+.el-backtop {
+  position: fixed;
+  background-color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #409eff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 0 6px rgba(0,0,0,.12);
+  cursor: pointer;
+  z-index: 5;
+}
 .header-user-username span{
   cursor: pointer;
 }

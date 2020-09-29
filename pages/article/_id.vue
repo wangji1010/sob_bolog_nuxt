@@ -22,6 +22,7 @@
           </div>
         </div>
       </div>
+
       <div class="article-comment-input" >
         <div class="article-comment-title">
           发表评论
@@ -152,6 +153,7 @@ export default {
   components: {WordCloud, TaobaoLoop},
   data() {
     return {
+      dialogVisible:false,
       comment: {
         content: '',
         articleId:'',
@@ -162,8 +164,10 @@ export default {
       currentPage:1,
       pageSize:5,
       subComment:'',
-      subCommentPlaceHolder:'高低整两句?'
+      subCommentPlaceHolder:'高低整两句?',
+      isMessage:false
     }
+
   },
   mounted() {
     hljs.initHighlighting()
@@ -175,6 +179,16 @@ export default {
     })
   },
   methods: {
+    toLogin(){
+      //关闭弹窗
+      location.href='/login?redirect='+location.href
+      this.$message({
+        showClose: true,
+        duration:0,
+        message: '注意哦，我们还不知道您是谁,请先登录',
+        type: 'warning'
+      });
+    },
     replySubComment(parentContent,articleId){
       //检查数据
       if (this.subComment===''){
@@ -199,6 +213,7 @@ export default {
               block:'start'
             })
           }
+          this.comment.content = ''
           this.$message.success(res.message)
         }else {
           this.$message.success(res.message)
@@ -275,7 +290,8 @@ export default {
       api.checkToken().then(res=>{
         console.log(res)
         if (res.code===402){
-          location.href='/login?redirect='+location.href
+          //显示弹窗
+         this.toLogin()
         }
       })
     },
